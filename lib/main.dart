@@ -56,7 +56,6 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
 
-  // Add More names to myNames
   // use a number to track the index of the name you want to use.
   // Cycle through the names when you press the button, incrementing the number
   // When you reach the highest index, reset the number back to 0
@@ -64,10 +63,14 @@ class _MyHomePageState extends State<MyHomePage> {
 
   final List<String> _myNames = [
     "Dan",
-    "Steve"
+    "Steve",
+	  "Kevin",
+	  "Curtis",
+	  "Alex"
   ];
 
   String? _myName;
+  int _nameIndex = 0;
 
   @override
   void initState() {
@@ -77,8 +80,14 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   void onPressed(){
+    _nameIndex = _nameIndex + 1;
+
+    if(_nameIndex >= _myNames.length){
+      _nameIndex = 0;
+    }
+
     setState(() {
-      _myName = _myNames[1];
+      _myName = _myNames[_nameIndex];
     });
     
   }
