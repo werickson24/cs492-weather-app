@@ -73,15 +73,78 @@ class Forecast{
   }
 
   String getIconPath(){
-    // TODO: Keep adding to this logic to try to get rid of question marks
-    // TODO: change the location in your android phone to at least 5 different location
+    const Map<String, String> forecastToIcons = {
+      //Sunny
+      'sunny': 'sunny',
+      'clear': 'clear',
+      'mostly sunny': 'mostly_sunny',
+      'mostly clear': 'mostly_clear',
+      'partly sunny': 'partly_clear',
+
+      //Cloudy
+      'mostly cloudy': 'mostly_cloudy',
+      'partly cloudy': 'partly_cloudy',
+      'cloudy': 'cloudy',
+
+      //Rain
+      'chance rain showers': 'scattered_showers',
+      'rain showers likely': 'scattered_showers',
+      'slight chance drizzle': 'drizzle',
+      'slight chance light rain': 'drizzle',
+      'rain': 'scattered_showers',
+      'chance light rain': 'scattered_showers',
+      'rain showers': 'scattered_showers',
+      'light rain': 'scattered_showers',
+      'light rain likely': 'scattered_showers',
+      'slight chance rain showers': 'scattered_showers',
+
+      //Snow
+      'slight chance light snow': 'snow_showers',
+      'chance light snow': 'snow_showers',
+      'heavy snow likely': 'heavy_snow',
+      'heavy snow': 'heavy_snow',
+      'light snow likely': 'snow_showers',
+      'snow': 'snow_showers',
+      'light snow': 'snow_showers',
+      'heavy snow and patchy blowing snow': 'blowing_snow',
+      'snow likely': 'snow_showers',
+      'snow and patchy blowing snow': 'blowing_snow',
+      'patchy blowing snow': 'blowing_snow',
+      'chance snow showers': 'snow_showers',
+
+      //Tstorms
+      'chance showers and thunderstorms': 'strong_tstorms',
+      'showers and thunderstorms likely': 'strong_tstorms',
+      'slight chance showers and thunderstorms': 'strong_tstorms',
+      'showers and thunderstorms': 'strong_tstorms',
+
+      //other
+      'patchy blowing dust': 'dust',
+
+      //Mix
+      'rain and snow': 'wintery_mix',
+      'slight chance rain and snow': 'wintery_mix',
+      'rain and snow likely': 'wintery_mix',
+      'chance rain and snow': 'wintery_mix',
+      'slight chance snow showers': 'wintery_mix',
+      'chance rain and snow showers': 'wintery_mix',
+
+      //Ice
+      'slight chance freezing drizzle': 'icy',
+      'freezing drizzle likely': 'icy',
+      'chance sleet': 'icy',
+      'chance freezing rain': 'icy',
+      'freezing rain': 'icy',
+      'freezing rain likely': 'icy',
+      'chance freezing drizzle': 'icy',
+
+      //fog
+      'patchy fog': 'fog',
+      'areas of fog': 'fog'
+
+    };
     // with different climates so you can eliminate more question marks
-    if (shortForecast.toLowerCase().contains("sunny")){
-      return "assets/weather_icons/sunny.svg";
-    }
-    else {
-      return "assets/weather_icons/question.svg";
-    }
+    return "assets/weather_icons/${forecastToIcons[shortForecast.toLowerCase()] ?? 'question'}.svg";
   }
 }
 

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:weatherapp/scripts/forecast.dart' as forecast;
 import 'package:weatherapp/scripts/time.dart' as time;
 import 'package:weatherapp/scripts/math.dart' as math;
+import 'package:weatherapp/widgets/forecast_summary_widget.dart';
 
 // TODO: Add the icon to this widget as well
 // Make it look good.
@@ -22,6 +23,7 @@ class ForecastWidget extends StatelessWidget {
         child: Column(
           children: [
             ForecastNameWidget(forecast: _forecast),
+            WeatherIconWidget(iconPath: _forecast.getIconPath()),
             Text(_forecast.detailedForecast ?? _forecast.shortForecast),
             Text("Wind: ${_forecast.windSpeed} ${_forecast.windDirection}"),
             Text("Temp: ${_forecast.temperature}°${_forecast.temperatureUnit}"),

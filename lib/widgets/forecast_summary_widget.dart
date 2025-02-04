@@ -4,8 +4,6 @@ import 'package:weatherapp/scripts/time.dart' as time;
 
 import 'package:flutter_svg/flutter_svg.dart';
 
-
-
 class ForecastSummaryWidget extends StatelessWidget {
   const ForecastSummaryWidget({
     super.key,
