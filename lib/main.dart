@@ -118,24 +118,32 @@ class _MyHomePageState extends State<MyHomePage> {
     return _forecastsHourly.where((f)=>time.equalDates(f.startTime, _dailyForecasts[i].startTime)).toList();
   }
 
-  void setLocation() async {
-    if (_location == null){
-      location.Location currentLocation = await location.getLocationFromGps();
+  void setLocation([location.Address? geoAddress]) async {
 
-      List<forecast.Forecast> currentHourlyForecasts = await getHourlyForecasts(currentLocation);
-      List<forecast.Forecast> currentForecasts = await getForecasts(currentLocation);
-
-      setState(() {
-        _location = currentLocation;
-        _forecastsHourly = currentHourlyForecasts;
-        _forecasts = currentForecasts;
-        setDailyForecasts();
-        _filteredForecastsHourly = getFilteredForecasts(0);
-        _activeForecast = _forecastsHourly[0];
-        
-        
-      });
+    location.Location? getLocation;
+    if(geoAddress != null){
+      getLocation = await location.getLocationFromAddress(geoAddress.city, geoAddress.state, geoAddress.zip);
+    } 
+    
+    if(geoAddress == null || getLocation == null) {
+      getLocation = await location.getLocationFromGps();
     }
+
+    location.Location currentLocation = getLocation;
+
+    List<forecast.Forecast> currentHourlyForecasts = await getHourlyForecasts(currentLocation);
+    List<forecast.Forecast> currentForecasts = await getForecasts(currentLocation);
+
+    setState(() {
+      _location = currentLocation;
+      _forecastsHourly = currentHourlyForecasts;
+      _forecasts = currentForecasts;
+      setDailyForecasts();
+      _filteredForecastsHourly = getFilteredForecasts(0);
+      _activeForecast = _forecastsHourly[0];
+      
+      
+    });
   }
 
   @override
@@ -173,7 +181,7 @@ class _MyHomePageState extends State<MyHomePage> {
             filteredForecastsHourly: _filteredForecastsHourly,
             setActiveForecast: setActiveForecast,
             setActiveHourlyForecast: setActiveHourlyForecast),
-          LocationTabWidget()]
+          LocationTabWidget(setLocation: setLocation)]
         ),
       ),
     );
@@ -183,13 +191,56 @@ class _MyHomePageState extends State<MyHomePage> {
 // TODO: Add a button to this widget that sets the active location to the phone's GPS location
 // TODO: Add 3 text fields for city state zip and a submit button that sets the location based on the user's entries
 class LocationTabWidget extends StatelessWidget {
+  final Function setLocation;
   const LocationTabWidget({
     super.key,
+    required this.setLocation,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Text("PLACEHOLDER!!!!!");
+    final TextEditingController cityController = TextEditingController();
+    final TextEditingController stateController = TextEditingController();
+    final TextEditingController zipController = TextEditingController();
+
+    return Padding(
+      padding: const EdgeInsets.all(16.0),
+      child: Center(
+        child: Column(
+          children: [
+            TextField(
+              controller: cityController,
+              decoration: InputDecoration(
+                border: OutlineInputBorder(),
+                labelText: 'City',
+              ),
+            ),
+            TextField(
+              controller: stateController,
+              decoration: InputDecoration(
+                border: OutlineInputBorder(),
+                labelText: 'State',
+              ),
+            ),
+            TextField(
+              controller: zipController,
+              decoration: InputDecoration(
+                border: OutlineInputBorder(),
+                labelText: 'zip',
+              ),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                  String city = cityController.text;
+                  String state = stateController.text;
+                  String zip = zipController.text;
+                setLocation(location.Address(state: state, city: city, zip: zip));
+              },
+              child: Text('Submit')),
+          ],
+        ),
+      )
+    );
   }
 }
 

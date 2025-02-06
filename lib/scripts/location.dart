@@ -1,6 +1,18 @@
 import 'package:geocoding/geocoding.dart' as geocoding;
 import 'package:geolocator/geolocator.dart' as geolocator;
 
+class Address{
+  final String state;
+  final String city;
+  final String zip;
+
+  Address({
+    required this.state,
+    required this.city,
+    required this.zip,
+  });
+}
+
 class Location{
   final String? state;
   final String? city;
