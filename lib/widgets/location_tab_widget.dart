@@ -27,11 +27,33 @@ class LocationTabWidget extends StatelessWidget {
       children: [
         LocationDisplayWidget(activeLocation: _location),
         LoctionInputWidget(setLocation: _setLocation),
-        ElevatedButton(onPressed: ()=>{_setLocation()},child: const Text("Get From GPS"))
+        ElevatedButton(onPressed: ()=>{_setLocation()},child: const Text("Get From GPS")),
+        SavedLocationsWidget()
       ],
     );
   }
 }
+
+class SavedLocationsWidget extends StatefulWidget {
+  const @override
+  State<SavedLocationsWidget> createState() => _SavedLocationsWidgetState();
+}
+
+class _SavedLocationsWidgetState extends State<SavedLocationsWidget> {
+ SavedLocations({
+    super.key,
+  });
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Text("Saved Locations"),
+        OutlinedButton(onPressed: onPressed, child: Text("An Address"))
+      ],
+    );
+  }
+}
+//Some function that takes in a List<Address> _addressData list and would produce a list of [Button(OnPressed(Addressdata[1]), Text(AddressData[1]))]
 
 class LocationDisplayWidget extends StatelessWidget {
   const LocationDisplayWidget({
