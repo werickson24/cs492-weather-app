@@ -26,7 +26,7 @@ class _LocationTabWidgetState extends State<LocationTabWidget> {
   final locationStorage.LocationStorage ls = locationStorage.LocationStorage();
 
   List<location.Location> _savedLocations = [];
-
+  
 
 
   void _setLocationFromAddress(String city, String state, String zip) async {
@@ -50,8 +50,19 @@ class _LocationTabWidgetState extends State<LocationTabWidget> {
       _savedLocations.add(location);
     });
 
-    await ls.writeLocations(_savedLocations);
     
+    //await ls.writeLocations(_savedLocations);
+    _db.insertLocation(location);
+    
+  }
+
+  void _deleteLocation(location.Location location) async {
+    setState(() {
+      _savedLocations.remove(location);
+    });
+
+    //I really have no idea what's going on
+    _db.removeLocation(location);
   }
 
   @override
@@ -59,6 +70,16 @@ class _LocationTabWidgetState extends State<LocationTabWidget> {
     // Get initial locations
     super.initState();
     _loadLocations();
+    _loadDatabase();
+  }
+
+  void _loadDatabase() async {
+    location_database.LocationDatabase db = await location_database.LocationDatabase.open();
+    _db = db;
+    List<location.Location> locations = await _db.getLocations();
+    setState(() => {
+      _savedLocations = locations;
+    });
   }
 
   void _loadLocations() async {
