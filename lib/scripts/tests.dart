@@ -1,12 +1,7 @@
 import 'forecast.dart' as forecast;
 import 'location.dart' as location;
 
-// void main() async {
-//   testForecast();
-// }
-
 void testLocation() async {
-
   List<Map<String, String>> testLocations = [];
   testLocations.add({"city": "Portland", "state": "OR", "zip": "97206"});
   testLocations.add({"city": "Portland", "state": "ME", "zip": ""});
@@ -15,17 +10,15 @@ void testLocation() async {
   testLocations.add({"city": "Santa Clause", "state": "IN", "zip": ""});
 
   for (Map<String, String> testLocation in testLocations) {
-    location.Location? loc = await location.getLocationFromAddress(testLocation["city"]!, testLocation["state"]!, testLocation["zip"]!);
+    location.Location? loc = await location.getLocationFromAddress(
+        testLocation["city"]!, testLocation["state"]!, testLocation["zip"]!);
     continue;
   }
-  
-
 }
 
-void testGps(){
+void testGps() {
   location.getLocationFromGps();
 }
-
 
 void testForecast() async {
 // testing with Bend, OR coordinates
@@ -39,8 +32,10 @@ void testForecast() async {
     [35.0844, -106.65]
   ];
 
-  for (List<double> coord in coords){
-    List<forecast.Forecast> forecasts = await forecast.getForecastFromPoints(coord[0], coord[1]);
-    List<forecast.Forecast> forecastsHourly = await forecast.getForecastHourlyFromPoints(coord[0],coord[1]);
+  for (List<double> coord in coords) {
+    List<forecast.Forecast> forecasts =
+        await forecast.getForecastFromPoints(coord[0], coord[1]);
+    List<forecast.Forecast> forecastsHourly =
+        await forecast.getForecastHourlyFromPoints(coord[0], coord[1]);
   }
 }

@@ -55,14 +55,13 @@ class _LocationTabWidgetState extends State<LocationTabWidget> {
   // }
 
   void _addLocation(location.Location location) async {
-    if (!_savedLocations.contains(location)){
+    if (!_savedLocations.contains(location)) {
       setState(() {
         _savedLocations.add(location);
       });
 
       _db.insertLocation(location);
     }
-
   }
 
   void _deleteLocation(location.Location location) async {
@@ -88,20 +87,12 @@ class _LocationTabWidgetState extends State<LocationTabWidget> {
     });
   }
 
-  // previous json implementation
-  // void _loadLocations() async {
-  //   List<location.Location> locations = await ls.readLocations();
-  //   setState(() {
-  //     _savedLocations = locations;
-  //   });
-  // }
-
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         LocationDisplayWidget(activeLocation: widget._location),
-        LoctionInputWidget(
+        LocationInputWidget(
             setLocation: _setLocationFromAddress), // pass in _addLocation
         ElevatedButton(
             onPressed: () => {_setLocationFromGps()},
@@ -192,9 +183,7 @@ class SavedLocationWidget extends StatelessWidget {
 
 class SavedLocationEditWidget extends StatelessWidget {
   const SavedLocationEditWidget(
-      {super.key,
-      required location.Location loc,
-      required Function delete})
+      {super.key, required location.Location loc, required Function delete})
       : _loc = loc,
         _delete = delete;
 
@@ -210,15 +199,19 @@ class SavedLocationEditWidget extends StatelessWidget {
           border: Border.all(color: Colors.red, width: 2)),
       child: Padding(
         padding: const EdgeInsets.all(12.0),
-        child: SizedBox(width: 250, child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text("${_loc.city}, ${_loc.state} ${_loc.zip}"),
-            GestureDetector(
-              onTap: (){_delete(_loc);}, 
-              child: Icon(Icons.delete, color: Colors.red))
-          ],
-        )),
+        child: SizedBox(
+            width: 250,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text("${_loc.city}, ${_loc.state} ${_loc.zip}"),
+                GestureDetector(
+                    onTap: () {
+                      _delete(_loc);
+                    },
+                    child: Icon(Icons.delete, color: Colors.red))
+              ],
+            )),
       ),
     );
   }
@@ -239,8 +232,8 @@ class LocationDisplayWidget extends StatelessWidget {
   }
 }
 
-class LoctionInputWidget extends StatefulWidget {
-  const LoctionInputWidget({
+class LocationInputWidget extends StatefulWidget {
+  const LocationInputWidget({
     super.key,
     required Function setLocation,
   }) : _setLocation = setLocation;
@@ -248,10 +241,10 @@ class LoctionInputWidget extends StatefulWidget {
   final Function _setLocation;
 
   @override
-  State<LoctionInputWidget> createState() => _LoctionInputWidgetState();
+  State<LocationInputWidget> createState() => _LocationInputWidgetState();
 }
 
-class _LoctionInputWidgetState extends State<LoctionInputWidget> {
+class _LocationInputWidgetState extends State<LocationInputWidget> {
   // values
   late String _city;
   late String _state;

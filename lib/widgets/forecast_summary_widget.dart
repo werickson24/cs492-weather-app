@@ -3,15 +3,10 @@ import 'package:weatherapp/scripts/forecast.dart' as forecast;
 import 'package:weatherapp/scripts/time.dart' as time;
 import 'package:weatherapp/widgets/weather_icon_widget.dart';
 
-
-
-
-
 class ForecastSummaryWidget extends StatelessWidget {
-  const ForecastSummaryWidget({
-    super.key,
-    required forecast.Forecast currentForecast
-  }) : _forecast = currentForecast;
+  const ForecastSummaryWidget(
+      {super.key, required forecast.Forecast currentForecast})
+      : _forecast = currentForecast;
 
   final forecast.Forecast _forecast;
 
@@ -23,7 +18,8 @@ class ForecastSummaryWidget extends StatelessWidget {
         height: 145,
         width: 100,
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(16.0), // Adjust the radius to control the roundness
+          borderRadius: BorderRadius.circular(
+              16.0), // Adjust the radius to control the roundness
           border: Border.all(
             color: Colors.black, // Border color
             width: 2.0, // Border width
@@ -36,23 +32,20 @@ class ForecastSummaryWidget extends StatelessWidget {
               child: Column(
                 children: [
                   ForecastNameWidget(forecast: _forecast),
-                  WeatherIconWidget(iconPath: _forecast.getIconPath(), width: 50, height: 50)
+                  WeatherIconWidget(
+                      iconPath: _forecast.getIconPath(), width: 50, height: 50)
                   // ShortForecastWidget(forecast: _forecast)
                 ],
               ),
             ),
-            
-            Text(_forecast.tempHighLow ?? "${_forecast.temperature}°${_forecast.temperatureUnit}")
+            Text(_forecast.tempHighLow ??
+                "${_forecast.temperature}°${_forecast.temperatureUnit}")
           ],
         ),
       ),
     );
   }
 }
-
-
-
-
 
 class ForecastNameWidget extends StatelessWidget {
   const ForecastNameWidget({
@@ -65,11 +58,10 @@ class ForecastNameWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Text(
-      _forecast.name ?? time.convertTimestampToDayAndHour(_forecast.startTime.toLocal()),
-      textAlign: TextAlign.center,
-      style: TextStyle(
-        fontSize: 12.0
-      ));
+        _forecast.name ??
+            time.convertTimestampToDayAndHour(_forecast.startTime.toLocal()),
+        textAlign: TextAlign.center,
+        style: TextStyle(fontSize: 12.0));
   }
 }
 
@@ -83,10 +75,7 @@ class ShortForecastWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text(
-      _forecast.shortForecast,
-      textAlign: TextAlign.center,
-      style:TextStyle(fontSize: 9.0));
+    return Text(_forecast.shortForecast,
+        textAlign: TextAlign.center, style: TextStyle(fontSize: 9.0));
   }
 }
-
