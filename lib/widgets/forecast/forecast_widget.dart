@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:weatherapp/scripts/forecast.dart' as forecast;
 import 'package:weatherapp/scripts/time.dart' as time;
-import 'package:weatherapp/scripts/math.dart' as math;
 import 'package:weatherapp/widgets/weather_icon_widget.dart';
 
 class ForecastWidget extends StatelessWidget {
@@ -26,7 +25,7 @@ class ForecastWidget extends StatelessWidget {
             Text("Wind: ${_forecast.windSpeed} ${_forecast.windDirection}"),
             Text("Temp: ${_forecast.temperature}°${_forecast.temperatureUnit}"),
             Text(_forecast.dewpoint != null
-                ? "Dewpoint: ${math.roundToDecimalPlaces(_forecast.dewpoint, 2)}"
+                ? "Dewpoint: ${_forecast.dewpoint?.toStringAsFixed(2)}"
                 : ""),
             Text(_forecast.humidity != null
                 ? "Humidity: ${_forecast.humidity}"
