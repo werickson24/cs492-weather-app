@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:weatherapp/widgets/forecast_page.dart';
+import 'package:weatherapp/widgets/forecast/forecast_page.dart';
 
 // TODO: With a partner, refactor the entire codebase (not just main.dart, every file)
 // You should be looking for opportunities to make the code better

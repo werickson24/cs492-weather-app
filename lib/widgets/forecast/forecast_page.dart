@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:weatherapp/scripts/forecast.dart' as forecast;
 import 'package:weatherapp/scripts/location.dart' as location;
 import 'package:weatherapp/scripts/time.dart' as time;
-import 'package:weatherapp/widgets/forecast_tab_widget.dart';
-import 'package:weatherapp/widgets/location_tab_widget.dart';
+import 'package:weatherapp/widgets/forecast/forecast_tab_widget.dart';
+import 'package:weatherapp/widgets/location/location_tab_widget.dart';
 
 class ForecastPage extends StatefulWidget {
   const ForecastPage({super.key, required this.title});
