@@ -7,13 +7,15 @@ class Location {
   final String? zip;
   final double latitude;
   final double longitude;
+  String url;
 
   Location(
       {required this.state,
       required this.city,
       required this.zip,
       required this.latitude,
-      required this.longitude});
+      required this.longitude,
+      this.url = ""});
 
   factory Location.fromJson(Map<String, dynamic> json) {
     return Location(
@@ -21,7 +23,8 @@ class Location {
         city: json["city"],
         zip: json["zip"],
         latitude: json["latitude"],
-        longitude: json["longitude"]);
+        longitude: json["longitude"],
+        url: json['url'] ?? "");
   }
 
   Map<String, dynamic> toJson() {
@@ -30,13 +33,14 @@ class Location {
       "city": city,
       "zip": zip,
       "latitude": latitude,
-      "longitude": longitude
+      "longitude": longitude,
+      "url": url
     };
   }
 
   @override
   String toString() {
-    return "city: $city, $state, $zip, lat: $latitude, lon: $longitude";
+    return "city: $city, $state, $zip, lat: $latitude, lon: $longitude, url: $url";
   }
 
   @override

@@ -34,9 +34,10 @@ class LocationProvider extends ChangeNotifier {
 
   void setLocation(location.Location loc) async {
     activeLocation = loc;
-    if (activeLocation != null){
-      activeLocationImg = await getImageByQuery("${activeLocation!.city} ${activeLocation!.state}");
+    if(activeLocation?.url == ""){
+      activeLocation?.url = await getImageByQuery("${activeLocation?.city} ${activeLocation?.state}") ?? "";
     }
+    activeLocationImg = activeLocation?.url;
     
     notifyListeners();
     if (activeLocation != null) {
@@ -52,6 +53,7 @@ class LocationProvider extends ChangeNotifier {
     final newLocation = await location.getLocationFromAddress(city, state, zip);
 
     if (newLocation != null) {
+      newLocation.url = await getImageByQuery("${newLocation.city} ${newLocation.state}") ?? "";
       activeLocation = newLocation;
       addLocation(newLocation);
       notifyListeners();
@@ -63,6 +65,7 @@ class LocationProvider extends ChangeNotifier {
     notifyListeners();
 
     final newLocation = await location.getLocationFromGps();
+    newLocation.url = await getImageByQuery("${newLocation.city} ${newLocation.state}") ?? "";
     activeLocation = newLocation;
     addLocation(newLocation);
     notifyListeners();
